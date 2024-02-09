@@ -17,14 +17,20 @@ def get_dataset(
             "penn_fudan/data/PennFudanPed",
             get_transform(train=False),
         )
+        indices = torch.randperm(len(dataset_train)).tolist()
+        dataset_train = torch.utils.data.Subset(dataset_train, indices[:-50])
+        dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
         num_classes = 2
     elif dataset_name == "tomatoes":
         dataset_train = YOLODataset("yolo/tomatoes/train", get_transform(train=True))
         dataset_test = YOLODataset("yolo/tomatoes/val", get_transform(train=False))
         num_classes = 4
     elif dataset_name == "uav":
-        dataset_train = YOLODataset("yolo/uav/train", get_transform(train=True))
-        dataset_test = YOLODataset("yolo/uav/train", get_transform(train=False))
+        dataset_train = YOLODataset("yolo/uav", get_transform(train=True))
+        dataset_test = YOLODataset("yolo/uav", get_transform(train=False))
+        indices = torch.randperm(len(dataset_train)).tolist()
+        dataset_train = torch.utils.data.Subset(dataset_train, indices[:-50])
+        dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
         num_classes = 2
     else:
         raise NotImplementedError
