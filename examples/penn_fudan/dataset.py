@@ -4,17 +4,7 @@ import torch
 from torchvision import tv_tensors
 from torchvision.io import read_image
 from torchvision.ops.boxes import masks_to_boxes
-from torchvision.transforms import v2 as T
 from torchvision.transforms.v2 import functional as F
-
-
-def get_transform(train):
-    transforms = []
-    if train:
-        transforms.append(T.RandomHorizontalFlip(0.5))
-    transforms.append(T.ToDtype(torch.float, scale=True))
-    transforms.append(T.ToPureTensor())
-    return T.Compose(transforms)
 
 
 class PennFudanDataset(torch.utils.data.Dataset):

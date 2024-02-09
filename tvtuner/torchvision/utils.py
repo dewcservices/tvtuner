@@ -9,6 +9,7 @@ import torch.distributed as dist
 
 
 class SmoothedValue:
+
     """Track a series of values and provide access to smoothed values over a
     window or the global series average.
     """

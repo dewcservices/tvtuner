@@ -1,12 +1,12 @@
 import torch
-from torchvision.models.detection.mask_rcnn import MaskRCNN
+from torchvision.models.detection.faster_rcnn import FasterRCNN
 
 from tvtuner.torchvision import utils
 from tvtuner.torchvision.engine import evaluate, train_one_epoch
 
 
 def train(
-    model: MaskRCNN,
+    model: FasterRCNN,
     dataset_train: torch.utils.data.Dataset,
     dataset_test: torch.utils.data.Dataset,
 ) -> None:
@@ -23,7 +23,7 @@ def train(
         dataset,
         batch_size=2,
         shuffle=True,
-        num_workers=4,
+        num_workers=0,
         collate_fn=utils.collate_fn,
     )
 
@@ -31,7 +31,7 @@ def train(
         dataset_test,
         batch_size=1,
         shuffle=False,
-        num_workers=4,
+        num_workers=0,
         collate_fn=utils.collate_fn,
     )
 
@@ -55,5 +55,3 @@ def train(
         lr_scheduler.step()
         # evaluate on the test dataset
         evaluate(model, data_loader_test, device=device)
-
-    return model

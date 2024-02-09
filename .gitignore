@@ -1,3 +1,5 @@
+examples/yolo/tomatoes/
+examples/yolo/uav/
 examples/penn_fudan/data/
 
 # Byte-compiled / optimized / DLL files
