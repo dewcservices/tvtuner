@@ -1,6 +1,7 @@
 examples/yolo/data/
 examples/penn_fudan/data/
 .vscode/
+*.pkl
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

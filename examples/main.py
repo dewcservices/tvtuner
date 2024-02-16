@@ -1,12 +1,14 @@
 import pathlib
 import sys
 
-from dataset import get_dataset
+import torch
 
 from tvtuner.eval import eval_object_detection_model
 from tvtuner.model import get_model_object_detection
 from tvtuner.train import train
 from tvtuner.visuals import export_boxes
+
+from dataset import get_dataset
 
 dataset_name = sys.argv[1]  # penn_fudan, tomatoes, uav
 dataset_train, dataset_test, num_classes, label_names = get_dataset(dataset_name)
@@ -35,3 +37,5 @@ for k in range(3):
         f"{k}-trained",
         output_dir,
     )
+
+    torch.save(model, f"trained-{dataset_name}-model.pkl")
