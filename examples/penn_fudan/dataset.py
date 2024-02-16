@@ -8,7 +8,7 @@ from torchvision.transforms.v2 import functional as F
 
 
 class PennFudanDataset(torch.utils.data.Dataset):
-    def __init__(self, root, transforms):
+    def __init__(self, root, transforms) -> None:
         self.root = root
         self.transforms = transforms
         # load all image files, sorting them to
@@ -63,5 +63,5 @@ class PennFudanDataset(torch.utils.data.Dataset):
 
         return img, target
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.imgs)

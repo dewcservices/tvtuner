@@ -24,7 +24,8 @@ def get_dataset(
         labels = ["background", "pedestrian"]
     elif dataset_name == "tomatoes":
         dataset_train = YOLODataset(
-            "yolo/data/tomatoes/train", get_transform(train=True),
+            "yolo/data/tomatoes/train",
+            get_transform(train=True),
         )
         dataset_test = YOLODataset("yolo/data/tomatoes/val", get_transform(train=False))
         num_classes = 4

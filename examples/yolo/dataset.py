@@ -1,4 +1,5 @@
 import os
+import pathlib
 
 import torch
 from torchvision import tv_tensors
@@ -7,14 +8,14 @@ from torchvision.transforms.v2 import functional as F
 
 
 class YOLODataset(torch.utils.data.Dataset):
-    def __init__(self, root, transforms):
+    def __init__(self, root, transforms) -> None:
         self.root = root
         self.transforms = transforms
         # load all image files, sorting them to ensure that they are aligned
         self.imgs = sorted(os.listdir(os.path.join(root, "images")))
         self.labels = sorted(os.listdir(os.path.join(root, "labels")))
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx: int) -> tuple:
         # load images and masks
         img_path = os.path.join(self.root, "images", self.imgs[idx])
         labels_path = os.path.join(self.root, "labels", self.labels[idx])
@@ -28,13 +29,9 @@ class YOLODataset(torch.utils.data.Dataset):
 
         boxes = []
         labels = []
-        with open(labels_path) as f:
+        with pathlib.Path(labels_path).open() as f:
             for line in f.readlines():
-                try:
-                    cls, xc, yc, w, h = map(float, line.split())
-                except ValueError:
-                    print("unpack")
-                    breakpoint()
+                cls, xc, yc, w, h = map(float, line.split())
 
                 labels.append(1 + int(cls))  # +1 to include background
                 boxes.append(
@@ -52,10 +49,7 @@ class YOLODataset(torch.utils.data.Dataset):
 
         image_id = idx
 
-        if num_objs == 0:
-            area = 0
-        else:
-            area = boxes[:, 2] * boxes[:, 3]
+        area = 0 if num_objs == 0 else boxes[:, 2] * boxes[:, 3]
 
         # suppose all instances are not crowd
         iscrowd = torch.zeros((num_objs,), dtype=torch.int64)
@@ -79,5 +73,5 @@ class YOLODataset(torch.utils.data.Dataset):
 
         return img, target
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.imgs)

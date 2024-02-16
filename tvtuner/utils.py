@@ -1,8 +1,8 @@
 import torch
-from torchvision.transforms import v2 as T
+from torchvision.transforms import v2 as T  # noqa: N812
 
 
-def get_transform(train):
+def get_transform(*, train: bool = False) -> T.Compose:
     transforms = []
     if train:
         transforms.append(T.RandomHorizontalFlip(0.5))

@@ -43,15 +43,22 @@ dev = [
 disable_error_code = ["call-overload"]
 
 [tool.ruff]
-select = ["ALL"]
+exclude = [
+    "examples/penn_fudan",
+    "torchvision",
+]
 
-ignore = [
+lint.select = ["ALL"]
+
+lint.ignore = [
     "ANN002",
     "ANN003",
     "ANN101",
     "ANN102",
     "D100",
+    "D103",
     "D104",
+    "D105",
     "D211",
     "D213",
     "D407",
@@ -59,6 +66,7 @@ ignore = [
     "G004",
     "INP001",
     "PGH003",
+    "PLR0913",
     "T201",
     "T203",
     "TCH001",
