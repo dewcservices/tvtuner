@@ -9,6 +9,7 @@ def train(
     model: FasterRCNN,
     dataset_train: torch.utils.data.Dataset,
     dataset_test: torch.utils.data.Dataset,
+    num_epochs: int,
 ) -> None:
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
@@ -34,7 +35,6 @@ def train(
     optimizer = torch.optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005)
 
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=3, gamma=0.1)
-    num_epochs = 2
 
     for epoch in range(num_epochs):
         train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq=10)

@@ -21,10 +21,14 @@ def get_dataset(
         dataset_train = torch.utils.data.Subset(dataset_train, indices[:-50])
         dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
         num_classes = 2
+        labels = ["background", "pedestrian"]
     elif dataset_name == "tomatoes":
-        dataset_train = YOLODataset("yolo/data/tomatoes/train", get_transform(train=True))
+        dataset_train = YOLODataset(
+            "yolo/data/tomatoes/train", get_transform(train=True),
+        )
         dataset_test = YOLODataset("yolo/data/tomatoes/val", get_transform(train=False))
         num_classes = 4
+        labels = ["background", "unripe", "semi-ripe", "ripe"]
     elif dataset_name == "uav":
         dataset_train = YOLODataset("yolo/data/uav", get_transform(train=True))
         dataset_test = YOLODataset("yolo/data/uav", get_transform(train=False))
@@ -32,7 +36,8 @@ def get_dataset(
         dataset_train = torch.utils.data.Subset(dataset_train, indices[:-50])
         dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
         num_classes = 2
+        labels = ["background", "uav"]
     else:
         raise NotImplementedError
 
-    return dataset_train, dataset_test, num_classes
+    return dataset_train, dataset_test, num_classes, labels
