@@ -27,7 +27,7 @@ mkdir train val
 mv images/train train/images
 mv images/val val/images
 mv labels/train train/labels
-mv labels/val train/labels
+mv labels/val val/labels
 rm -rf images labels annotations
 
 cd ../..
