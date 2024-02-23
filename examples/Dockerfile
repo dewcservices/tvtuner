@@ -8,5 +8,5 @@ WORKDIR /app
 COPY *.pkl .
 COPY service.py .
 
-EXPOSE 8000
-ENTRYPOINT uvicorn service:app
+EXPOSE 8080
+CMD ["uvicorn", "service:app", "--host", "0.0.0.0", "--port", "8080"]
