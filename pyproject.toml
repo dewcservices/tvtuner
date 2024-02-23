@@ -32,6 +32,10 @@ api = [
     "uvicorn",
 ]
 
+data = [
+    "kaggle",
+]
+
 dev = [
     "black",
     "black[jupyter]",
@@ -43,6 +47,7 @@ dev = [
     "pytest",
     "ruff",
     "tvtuner[api]",
+    "tvtuner[data]",
 ]
 
 [project.urls]

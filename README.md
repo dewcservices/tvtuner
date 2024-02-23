@@ -9,11 +9,13 @@ git clone https://github.com/dewcservices/tvtuner.git
 cd tvtuner
 python -m venv venv --prompt .
 source venv/bin/activate
-python -m pip install .
+python -m pip install .[dev]
 
 # run examples
 cd examples
+./download_data.sh  # requires a Kaggle account
 python main.py penn_fudan 
 python main.py tomatoes
-python main.py uav
+python main.py fixed_wing
+python main.py quadcopter
 ```

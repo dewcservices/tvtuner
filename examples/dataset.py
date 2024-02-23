@@ -30,14 +30,22 @@ def get_dataset(
         dataset_test = YOLODataset("yolo/data/tomatoes/val", get_transform(train=False))
         num_classes = 4
         labels = ["background", "unripe", "semi-ripe", "ripe"]
-    elif dataset_name == "uav":
-        dataset_train = YOLODataset("yolo/data/uav", get_transform(train=True))
-        dataset_test = YOLODataset("yolo/data/uav", get_transform(train=False))
+    elif dataset_name == "fixed_wing":
+        dataset_train = YOLODataset("yolo/data/fixed_wing", get_transform(train=True))
+        dataset_test = YOLODataset("yolo/data/fixed_wing", get_transform(train=False))
         indices = torch.randperm(len(dataset_train)).tolist()
         dataset_train = torch.utils.data.Subset(dataset_train, indices[:-50])
         dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
         num_classes = 2
-        labels = ["background", "uav"]
+        labels = ["background", "fixed_wing"]
+    elif dataset_name == "quadcopter":
+        dataset_train = YOLODataset("yolo/data/quadcopter", get_transform(train=True))
+        dataset_test = YOLODataset("yolo/data/quadcopter", get_transform(train=False))
+        indices = torch.randperm(len(dataset_train)).tolist()
+        dataset_train = torch.utils.data.Subset(dataset_train, indices[:-50])
+        dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
+        num_classes = 2
+        labels = ["background", "quadcopter"]
     else:
         raise NotImplementedError
 
