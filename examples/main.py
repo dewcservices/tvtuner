@@ -32,7 +32,7 @@ export_boxes(
     [x["boxes"] for x in test_outputs],
     [x["labels"] for x in test_outputs],
     label_names,
-    f"trained",
+    "trained",
     output_dir,
 )
 
