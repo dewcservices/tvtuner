@@ -18,4 +18,10 @@ python main.py penn_fudan
 python main.py tomatoes
 python main.py fixed_wing
 python main.py quadcopter
+
+# dockerise and serve
+cd examples
+docker build . -t tvtuner:latest
+docker run -p 8080:8080 tvtuner:latest
+curl localhost:8080/models
 ```
