@@ -25,16 +25,15 @@ export_boxes(
 
 model = get_model_object_detection(num_classes)
 
-for k in range(3):
-    train(model, dataset_train, dataset_test, 1)
-    test_outputs = eval_object_detection_model(model, dataset_test, n_examples)
-    export_boxes(
-        [dataset_test[i][0] for i in range(n_examples)],
-        [x["boxes"] for x in test_outputs],
-        [x["labels"] for x in test_outputs],
-        label_names,
-        f"{k}-trained",
-        output_dir,
-    )
+train(model, dataset_train, dataset_test, 2)
+test_outputs = eval_object_detection_model(model, dataset_test, n_examples)
+export_boxes(
+    [dataset_test[i][0] for i in range(n_examples)],
+    [x["boxes"] for x in test_outputs],
+    [x["labels"] for x in test_outputs],
+    label_names,
+    f"trained",
+    output_dir,
+)
 
-    torch.save(model, f"trained-{dataset_name}-model.pkl")
+torch.save(model, f"trained-{dataset_name}-model.pkl")

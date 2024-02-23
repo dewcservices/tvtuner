@@ -48,4 +48,17 @@ rm drone-yolo-detection.zip
 mkdir images labels
 mv Database1/Database1/*.JPEG images
 mv Database1/Database1/*.txt labels
+rm images/video18_1999.JPEG images/video15_487.JPEG  # found using: ls images | cut -d "." -f 1 > img_ref; ls labels | cut -d "." -f 1 > labels_ref; diff img_ref labels_ref
+cd images
+find . -name '*.JPEG' -size 0 | cut -d "." -f 2 | cut -d "/" -f 2 > to_delete  # remove empty images
+cd ..
+cd labels
+find . -name '*.txt' -size 0 | cut -d "." -f 2 | cut -d "/" -f 2 > to_delete  # remove empty labels
+cd ..
+cat images/to_delete | awk '{print "rm labels/"$0".txt"}' > to_delete.sh
+cat images/to_delete | awk '{print "rm images/"$0".JPEG"}' >> to_delete.sh
+cat labels/to_delete | awk '{print "rm labels/"$0".txt"}' >> to_delete.sh
+cat labels/to_delete | awk '{print "rm images/"$0".JPEG"}' >> to_delete.sh
+. to_delete.sh
+rm to_delete.sh images/to_delete labels/to_delete
 rm -rf Database1
